@@ -21,6 +21,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     List<Tweet> tweets;
 
     // Pass in the context and list of tweets
+    public TweetsAdapter(Context context, List<Tweet> tweets) {
+        this.context = context;
+        this.tweets = tweets;
+    }
 
     // For each row, inflate the layout
     @NonNull
