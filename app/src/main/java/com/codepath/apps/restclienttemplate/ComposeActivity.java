@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,12 +14,13 @@ import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONException;
+import org.parceler.Parcels;
 
 import okhttp3.Headers;
 
 public class ComposeActivity extends AppCompatActivity {
     public static final String TAG = "ComposeActivity";
-    public static final int MAX_TWEET_LENGTH = 140;
+    public static final int MAX_TWEET_LENGTH = 280;
 
     EditText etCompose;
     Button btnTweet;
@@ -57,6 +59,14 @@ public class ComposeActivity extends AppCompatActivity {
                         try {
                             Tweet tweet = Tweet.fromJson(json.jsonObject);
                             Log.i(TAG, "Published tweet says: " + tweet);
+
+                            // new intent with tweet to pass back to parent activity
+                            Intent intent = new Intent();
+                            intent.putExtra("tweet", Parcels.wrap(tweet));
+                            // set result code and bundle data for response
+                            setResult(RESULT_OK, intent);
+                            // close activity, pass data back to parent
+                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
