@@ -17,7 +17,8 @@
         android:ems="10"
         android:gravity="start|top"
         app:counterEnabled="true"
-        app:counterMaxLength="@string/maxTweetLength">
+        app:counterMaxLength="@string/maxTweetLength"
+        app:hintEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etCompose"
@@ -25,6 +26,7 @@
             android:layout_height="wrap_content"
             android:hint="What's happening?"
             android:inputType="textMultiLine"
+            android:gravity="start|top"
             android:minLines="5"
             android:maxLength="@string/maxTweetLength"
             />
