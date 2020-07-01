@@ -55,11 +55,13 @@ public class Tweet {
         String relativeDate = "";
         try {
             long dateMillis = sf.parse(createdAt).getTime();
-            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
-                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis, System.currentTimeMillis(),
+                    DateUtils.SECOND_IN_MILLIS).toString();
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        String[] num = relativeDate.split(" ");
+        relativeDate = num[0] + num[1].charAt(0);
 
         return relativeDate;
     }
