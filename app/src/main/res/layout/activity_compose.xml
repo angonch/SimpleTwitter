@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ComposeActivity">
 
-    <EditText
-        android:id="@+id/etCompose"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etComposeWrap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -16,17 +16,28 @@
         android:layout_marginTop="5dp"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="What's happening?"
-        android:inputType="textMultiLine"
-        android:minLines="5" />
+        app:counterEnabled="true"
+        app:counterMaxLength="@string/maxTweetLength">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etCompose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="What's happening?"
+            android:inputType="textMultiLine"
+            android:minLines="5"
+            android:maxLength="@string/maxTweetLength"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnTweet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etCompose"
+        android:layout_below="@id/etComposeWrap"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="2dp"
         android:text="@string/tweet" />
 </RelativeLayout>
