@@ -3,6 +3,11 @@ package com.codepath.apps.restclienttemplate.models;
 import android.text.format.DateUtils;
 import android.util.Log;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,12 +20,26 @@ import java.util.List;
 import java.util.Locale;
 
 @Parcel
+@Entity
 public class Tweet {
 
-    public String body;
-    public String createdAt;
-    public String mediaUrl;
+    @ColumnInfo
+    @PrimaryKey
     public long id;
+
+    @ColumnInfo
+    public String body;
+
+    @ColumnInfo
+    public String createdAt;
+
+    @ColumnInfo
+    public String mediaUrl;
+
+    @ColumnInfo
+    public long userId;
+
+    @Ignore
     public User user;
 
     // empty constructor for Parceler library
@@ -32,6 +51,7 @@ public class Tweet {
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.id = jsonObject.getLong("id");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+        tweet.userId = tweet.user.id;
         try {
             tweet.mediaUrl = jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("media_url_https");
         } catch (JSONException e) {
