@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Parcel
-@Entity
+@Entity(foreignKeys = @ForeignKey(entity=User.class, parentColumns="id", childColumns="userId"))
 public class Tweet {
 
     @ColumnInfo
