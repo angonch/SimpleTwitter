@@ -99,11 +99,31 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             } else {
                 ivMedia.setVisibility(View.GONE);
             }
+            client = TwitterApp.getRestClient(context);
             if(tweet.retweeted != null && tweet.retweeted == true) {
                 Glide.with(context).load(R.drawable.ic_vector_retweet_green).into(ivRetweet);
+                ivRetweet.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.i("TweetItem", "retweet clicked");
+                        // make api call to twitter to publish the tweet
+                        client.publishUnretweet(new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                                Log.i("TweetItem", "onSuccess to unretweet tweet");
+                                Glide.with(context).load(R.drawable.ic_vector_retweet).into(ivRetweet);
+                                tweet.retweeted = false;
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                                Log.e("TweetItem", "onFailure to unretweet tweet", throwable);
+                            }
+                        }, tweet.id);
+                    }
+                });
             } else {
                 Glide.with(context).load(R.drawable.ic_vector_retweet).into(ivRetweet);
-                client = TwitterApp.getRestClient(context);
                 ivRetweet.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -114,6 +134,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                             public void onSuccess(int statusCode, Headers headers, JSON json) {
                                 Log.i("TweetItem", "onSuccess to retweet tweet");
                                 Glide.with(context).load(R.drawable.ic_vector_retweet_green).into(ivRetweet);
+                                tweet.retweeted = true;
                             }
 
                             @Override
