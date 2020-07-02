@@ -89,7 +89,6 @@ public class TimelineActivity extends AppCompatActivity {
                 //  --> Deserialize and construct new model objects from the API response
                 JSONArray jsonArray = json.jsonArray;
                 try {
-                    adapter.clear();
                     //  --> Append the new data objects to the existing set of items inside the array of items
                     //  --> Notify the adapter of the new items made with `notifyItemRangeInserted()`
                     adapter.addAll(Tweet.fromJsonArray(jsonArray));
