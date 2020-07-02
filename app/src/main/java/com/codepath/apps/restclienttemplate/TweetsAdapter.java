@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import java.util.List;
+
+import okhttp3.Headers;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
 
     Context context;
     List<Tweet> tweets;
+    TwitterClient client;
 
     // Pass in the context and list of tweets
     public TweetsAdapter(Context context, List<Tweet> tweets) {
@@ -68,6 +73,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvName;
         TextView tvScreenName;
         TextView tvTimestamp;
+        ImageView ivRetweet;
         ImageView ivMedia;
 
         public ViewHolder(@NonNull View itemView) {
@@ -78,9 +84,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
             ivMedia = itemView.findViewById(R.id.ivMedia);
+            ivRetweet = itemView.findViewById(R.id.ivRetweet);
         }
 
-        public void bind(Tweet tweet) {
+        public void bind(final Tweet tweet) {
             tvBody.setText(tweet.body);
             tvScreenName.setText("@" + tweet.user.screenName);
             tvName.setText(tweet.user.name);
@@ -91,6 +98,31 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 Glide.with(context).load(tweet.mediaUrl).into(ivMedia);
             } else {
                 ivMedia.setVisibility(View.GONE);
+            }
+            if(tweet.retweeted != null && tweet.retweeted == true) {
+                Glide.with(context).load(R.drawable.ic_vector_retweet_green).into(ivRetweet);
+            } else {
+                Glide.with(context).load(R.drawable.ic_vector_retweet).into(ivRetweet);
+                client = TwitterApp.getRestClient(context);
+                ivRetweet.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.i("TweetItem", "retweet clicked");
+                        // make api call to twitter to publish the tweet
+                        client.publishRetweet(new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                                Log.i("TweetItem", "onSuccess to retweet tweet");
+                                Glide.with(context).load(R.drawable.ic_vector_retweet_green).into(ivRetweet);
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                                Log.e("TweetItem", "onFailure to retweet tweet", throwable);
+                            }
+                        }, tweet.id);
+                    }
+                });
             }
         }
     }

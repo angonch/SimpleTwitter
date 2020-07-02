@@ -43,6 +43,9 @@ public class Tweet {
     @Ignore
     public User user;
 
+    @ColumnInfo
+    public Boolean retweeted;
+
     // empty constructor for Parceler library
     public Tweet() {}
 
@@ -57,6 +60,12 @@ public class Tweet {
             tweet.mediaUrl = jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("media_url_https");
         } catch (JSONException e) {
             Log.i("Tweet", "tweet has no media");
+        }
+        try {
+            tweet.retweeted = jsonObject.getBoolean("retweeted");
+        } catch (JSONException e) {
+            Log.i("Tweet", "tweet not retweeted");
+            tweet.retweeted = false;
         }
         return tweet;
     }
