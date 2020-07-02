@@ -2,7 +2,7 @@
 
 SimpleTweet is an android app that allows a user to view their Twitter timeline and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
-Time spent: 20 hours spent in total
+Time spent: 25 hours spent in total
 
 ## User Stories
 
@@ -24,7 +24,6 @@ The following **required** functionality is completed:
 The following **stretch** features are implemented:
 
 * [X] User is using **"Twitter branded" colors and styles**
-  * [X] Twitter logo on Twitter-colored toolbar, logo for compose tweet, lines between tweets
 * [ ] User sees an **indeterminate progress indicator** when any background or network task is happening
 * [ ] User can **select "reply" from detail view to respond to a tweet**
   * [ ] User that wrote the original tweet is **automatically "@" replied in compose**
@@ -47,13 +46,17 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![SimpleTweet App Demo Link](screenshots/SimpleTweetDemo.gif)
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+GIF created with [Kap](http://www.getkap.co).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Some challenges while creating this app were manually changing the timeline after a tweet was posted
+because this required to make an intent to send information back to the parent activity. Another challenge
+was undestanding a bit of how databases work in order to do the Persistence stretch goal. It was also difficult
+to implement the retweet property because I needed to be careful to keep track of the value of whether a tweet
+was retweeted and to not allow other views to accidentally hold the green icon instead.
 
 ## Open-source libraries used
 
@@ -62,7 +65,7 @@ Describe any challenges encountered while building the app.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright 2020 Anna Goncharenko
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
