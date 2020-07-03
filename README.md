@@ -46,7 +46,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-![SimpleTweet App Demo Link](screenshots/SimpleTweetDemo.gif)
+![SimpleTweet App Demo Link](screenshots/Simple_Tweet_demo.gif)
 
 GIF created with [Kap](http://www.getkap.co).
 
