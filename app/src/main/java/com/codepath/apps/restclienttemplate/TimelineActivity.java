@@ -101,8 +101,9 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.i(TAG, "Showing data from database");
                 List<TweetWithUser> tweetWithUsers = tweetDao.recentItems();
                 List<Tweet> tweetsFromDB = TweetWithUser.getTweetList(tweetWithUsers);
-                adapter.clear();
-                adapter.addAll(tweetsFromDB);
+                //adapter.clear();
+                //adapter.addAll(tweetsFromDB);
+                adapter.replaceAll(tweetsFromDB);
             }
         });
 
@@ -167,8 +168,9 @@ public class TimelineActivity extends AppCompatActivity {
                 JSONArray jsonArray = json.jsonArray;
                 try {
                     final List<Tweet> tweetsFromNetwork = Tweet.fromJsonArray(jsonArray);
-                    adapter.clear();
-                    adapter.addAll(tweetsFromNetwork);
+                    //adapter.clear();
+                   // adapter.addAll(tweetsFromNetwork);
+                    adapter.replaceAll(tweetsFromNetwork);
                     swipeContainer.setRefreshing(false); // signal refresh has finished
 
                     AsyncTask.execute(new Runnable() {

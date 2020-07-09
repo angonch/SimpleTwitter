@@ -65,6 +65,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
+    public synchronized void replaceAll(List<Tweet> tweetList) {
+        tweets.clear();
+        tweets.addAll(tweetList);
+        notifyDataSetChanged();
+    }
+
     // Define a viewHolder - a "tweet"
     public class ViewHolder extends RecyclerView.ViewHolder {
 
